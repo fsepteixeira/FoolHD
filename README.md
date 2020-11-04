@@ -28,7 +28,10 @@ python main.py -configuration conf/parameters_train.conf
 ```
 ### Adversarial audio samples
 Please find our adversarial samples [here](include/samples.html).
-<audio src="../samples/original/id00012/id00012_21Uxsk56VDQ_00006_00000.wav"> Sample 1</audio>
+
+<p>
+<audio source="samples/original/id00012/id00012_21Uxsk56VDQ_00006_00000.wav">Sample 1</audio>
+</p>
 
 ### Reference
 If you would like to cite our work, please use:
