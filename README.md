@@ -29,7 +29,7 @@ python main.py -configuration conf/parameters_train.conf
                -end 10
 ```
 ### Adversarial audio samples
-Please find our adversarial samples [here](http://fsept11.github.io/FoolHD).
+Please find our adversarial samples [here](http://fsept11.github.io/FoolHD/samples).
 
 <audio controls>
   <source src="samples/original/id00012/id00012_21Uxsk56VDQ_00006_00000.wav" type="audio/wav">
