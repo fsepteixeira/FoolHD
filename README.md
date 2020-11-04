@@ -22,7 +22,8 @@ Please find our adversarial samples [here](Link).
 
 # Reference
 If you would like to cite our work, please use:
-```@article{shamsabadi2020fool,
+```
+@article{shamsabadi2020fool,
   title={FoolHD: Fooling speaker identification by Highly imperceptible adversarial Disturbances},
   author={Shamsabadi, Ali S. and Teixeira, Francisco S. and Abad, Alberto  and Raj, Bhiksha and Cavallaro, Andrea and Trancoso, Isabel},
   journal={arXiv preprint arXiv:!!!!!!},
