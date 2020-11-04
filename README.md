@@ -22,7 +22,7 @@ conda activate FoolHD
 ### Usage
 ```
 python main.py -configuration conf/parameters_train.conf 
-               -task targeted 
+               -task {untargeted, targeted}
                -start 0 
                -end 10
 ```
