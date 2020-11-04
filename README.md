@@ -31,7 +31,6 @@ Please find our adversarial samples [here](include/samples.html).
 
 <audio controls>
   <source src="samples/original/id00012/id00012_21Uxsk56VDQ_00006_00000.wav" type="audio/wav">
-Your browser does not support the audio element.
 </audio>
 
 ### Reference
