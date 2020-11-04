@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-
 ## FoolHD: Fooling speaker identification by Highly imperceptible adversarial Disturbances
 _Ali Shahin Shamsabadi, Francisco Sepúlveda Teixeira, Alberto Abad, Bhiksha Raj, Andrea Cavallaro, Isabel Trancoso_
 
@@ -30,10 +28,6 @@ python main.py -configuration conf/parameters_train.conf
 ```
 ### Adversarial audio samples
 Please find our adversarial samples [here](http://fsept11.github.io/FoolHD/samples).
-
-<audio controls>
-  <source src="samples/original/id00012/id00012_21Uxsk56VDQ_00006_00000.wav" type="audio/wav">
-</audio>
 
 ### Reference
 If you would like to cite our work, please use:
