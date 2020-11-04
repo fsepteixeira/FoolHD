@@ -25,7 +25,6 @@ python main.py -configuration conf/parameters_train.conf
                -task targeted 
                -start 0 
                -end 10
-
 ```
 ### Adversarial audio samples
 Please find our adversarial samples [here](Link).
