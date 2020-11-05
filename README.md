@@ -1,7 +1,3 @@
-<html>
-<head></head>
-<body>
-
 ## FoolHD: Fooling speaker identification by Highly imperceptible adversarial Disturbances
 _Ali Shahin Shamsabadi, Francisco Sepúlveda Teixeira, Alberto Abad, Bhiksha Raj, Andrea Cavallaro, Isabel Trancoso_
 
@@ -43,6 +39,3 @@ If you would like to cite our work, please use:
   year={2020}
 }
 ```
-{% include open-embed.html %}
-</body>
-</html>
