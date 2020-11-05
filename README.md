@@ -30,7 +30,7 @@ python main.py -configuration conf/parameters_train.conf
 You can find our adversarial samples [here](http://fsept11.github.io/FoolHD/samples).
 
 ### Reference
-If you would like to cite our work, please use:
+If you would like to cite our work, please use the following reference:
 ```
 @article{shamsabadi2020fool,
   title={FoolHD: Fooling speaker identification by Highly imperceptible adversarial Disturbances},
