@@ -1,6 +1,7 @@
 ## FoolHD: Fooling speaker identification by Highly imperceptible adversarial Disturbances
-_Ali Shahin Shamsabadi, Francisco Sepúlveda Teixeira, Alberto Abad, Bhiksha Raj, Andrea Cavallaro, Isabel Trancoso_
+_Ali Shahin Shamsabadi*, Francisco Sepúlveda Teixeira*, Alberto Abad, Bhiksha Raj, Andrea Cavallaro, Isabel Trancoso_
 
+*Authors contributed equally.
 
 Speaker identification models are vulnerable to carefully designed adversarial perturbations of their input signals that induce misclassification. 
 In this work, we propose a white-box steganography-inspired adversarial attack that generates imperceptible adversarial  perturbations against a speaker identification model.
