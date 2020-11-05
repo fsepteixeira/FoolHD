@@ -1,5 +1,4 @@
 ## FoolHD: Audio Samples
-_Ali Shahin Shamsabadi, Francisco Sepúlveda Teixeira, Alberto Abad, Bhiksha Raj, Andrea Cavallaro, Isabel Trancoso_
 
 | Speaker | Sample | Original | FGSM | BIM | FoolHD Targeted | FoolHD Untargeted |
 |---------|:------:|:--------:|:----:|:---:|:---------------:|-------------------|
