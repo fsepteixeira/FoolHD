@@ -15,6 +15,8 @@ Our results show that FoolHD generates highly imperceptible adversarial audio fi
 <p align="center"><img src="/_includes/BlockDiagram.png" alt="Block diagram" title="Block diagram of the proposed approach." width="60%" heigh="60%"/></p>
 <p align="center"><b>Fig 1. Block diagram of the proposed approach.</b></p>
 
+### Code will be available soon...
+
 ### Clone repository
 ``` 
 git clone https://github.com/fsept11/FoolHD.git 
@@ -40,7 +42,7 @@ If you would like to cite our work, please use:
 @article{shamsabadi2020fool,
   title={FoolHD: Fooling speaker identification by Highly imperceptible adversarial Disturbances},
   author={Shamsabadi, Ali S. and Teixeira, Francisco S. and Abad, Alberto  and Raj, Bhiksha and Cavallaro, Andrea and Trancoso, Isabel},
-  journal={arXiv preprint arXiv:!!!!!!},
+  journal={arXiv preprint arXiv},
   year={2020}
 }
 ```
