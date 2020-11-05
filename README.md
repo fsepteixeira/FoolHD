@@ -1,7 +1,7 @@
 ## FoolHD: Fooling speaker identification by Highly imperceptible adversarial Disturbances
 <emph>Ali Shahin Shamsabadi<sup>1\*</sup>, Francisco Sepúlveda Teixeira<sup>2\*</sup>, Alberto Abad<sup>2</sup>, Bhiksha Raj<sup>3</sup>, Andrea Cavallaro<sup>1</sup>, Isabel Trancoso<sup>2</sup></emph>
 
-<sup>1</sup>Queen Mary University of London, UK.  
+<sup>1</sup>CIS, Queen Mary University of London, UK.  
 <sup>2</sup>INESC-ID/IST, University of Lisbon, Portugal.  
 <sup>3</sup>Carnegie Mellon University, USA.
 
