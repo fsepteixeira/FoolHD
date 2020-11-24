@@ -28,17 +28,14 @@ def read_parameters(path):
 
 def main():
 
-	print("==================SETUP================")
 
 	# Get arguments
 	opt = arg_parser()
 
+	print("==================SETUP================")
 	# Get paramters	
 	params = read_parameters(opt.configuration)
 	print(params)
-
-	opt.start=int(opt.start)
-	opt.end=int(opt.end)
 
 	print("\n============CUDA INFORMATION============")
 	print("Cuda: ",torch.cuda.is_available())
@@ -53,6 +50,8 @@ def main():
 	
 	print("\n============CREATE MODELS============")
 	adv_model = ADVModel(**params['parameters_adv'])
+	adv_model = torch.load(params['model_adv_path'])
+	adv_model.to(device)
 
 	if opt.task == 'untargeted' or opt.task == 'targeted':
 		gae_model = GAEModel(**params['parameters_gae'])
@@ -61,28 +60,17 @@ def main():
 	if opt.task == 'untargeted':
 		gae_loss, gae_optimizer = compile_gae_untargeted(gae_model, **params)
 	elif opt.task == 'targeted':
-		gae_loss, gae_optimizer = compile_gae_targeted(gae_model, **params)
-	elif opt.task == 'adversarial':
-		adv_loss, adv_optimizer = compile_adv(adv_model, **params)
+		gae_loss, gae_optimizer = compile_gae_targeted(gae_model,   **params)
 	else:
-		raise ValueError("Task not implemented")
+		raise ValueError("Task {} not yet implemented".format(opt.task))
 
 	print("Done!")
 	print()
 
 	if opt.load_model:
 		print("==================Load Model================")
-		if opt.task == 'untargeted' or opt.task == 'targeted':
-			adv_model = torch.load(params['model_adv_path'])
-			gae_model.load_state_dict(torch.load(params['model_gae_path']))
-
-			adv_model.to(device)
-			gae_model.to(device)
-
-		elif opt.task == 'adversarial':
-			adv_model.load_state_dict(torch.load(params['model_adv_path']))
-		else:
-			raise ValueError("Task not implemented")
+		gae_model.load_state_dict(torch.load(params['model_gae_path']))
+		gae_model.to(device)
 
 	# Create Log files
 	logFileName = createLogFiles()
@@ -95,15 +83,14 @@ def main():
 			adv_model.eval()
 			train_gae_targeted(gae_model,   adv_model, dataset, gae_optimizer, gae_loss, opt.start, opt.end, **params)
 		else:
-			raise ValueError("Task not implemented")
+			raise ValueError("Task {} not yet implemented".format(opt.task))
 
 	if opt.score_adversarial_examples:
 		if opt.task == 'untargeted':
 			score_gae_untargeted(gae_model, adv_model, dataset, gae_optimizer, gae_loss, opt.start, opt.end, **params)
 		elif opt.task == 'targeted':
-			score_gae_targeted(gae_model,   adv_model, dataset, gae_optimizer, gae_loss, opt.start, opt.end, **params)
+			score_gae_targeted(gae_model, adv_model, dataset, gae_optimizer, gae_loss, opt.start, opt.end, **params)
 		else:
-			raise ValueError("Task not implemented")
-
+			raise ValueError("Task {} not yet implemented".format(opt.task))
 if __name__ == "__main__":
 	main()

@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 
-from torch_stft import STFT as stft
 from modules.GatedConvolutionalLayer import GatedConvolution
 from utils.mdct import MDCT as mdct
 

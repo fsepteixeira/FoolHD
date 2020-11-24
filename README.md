@@ -15,7 +15,7 @@ Our results show that FoolHD generates highly imperceptible adversarial audio fi
 <p align="center"><img src="figs/BlockDiagram.png" alt="Block diagram" title="Block diagram of the proposed approach." width="60%" heigh="60%"/></p>
 <p align="center"><b>Fig 1. Block diagram of the proposed approach.</b></p>
 
-### Code will be available soon...
+### Code available [here](https://github.com/fsept11/FoolHD/FoolHD/).
 
 ### Clone repository
 ``` 
@@ -28,10 +28,24 @@ conda activate FoolHD
 ```
 ### Usage
 ```
-python main.py -configuration conf/parameters_train.conf 
-               -task {untargeted, targeted}
-               -start 0 
-               -end 10
+usage: main.py [-h] [-task {untargeted,targeted,bim,fgsm}] [-load_model]
+               [-configuration CONFIGURATION] [-create_adversarial_examples]
+               [-score_adversarial_examples] [--start START] [--end END]
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -task {untargeted,targeted,bim,fgsm}
+                        Which task to run. (e.g. untargeted, tageted, bim,
+                        fgsm)
+  -load_model           Whether to load pre-trained model.
+  -configuration CONFIGURATION
+                        Configuration file - This file needs to be modified in order to accomodate for data path changes. 
+  -create_adversarial_examples
+  -score_adversarial_examples
+  --start START         Dataset sample start index (0 first/-1 last) - Useful
+                        to compute adversarial samples in parallel.
+  --end END             Dataset sample end index (0 first/-1 last) - Useful to
+                        compute adversarial samples in parallel.
 ```
 ### Adversarial audio samples
 You can find our adversarial samples [here](http://fsept11.github.io/FoolHD/samples).

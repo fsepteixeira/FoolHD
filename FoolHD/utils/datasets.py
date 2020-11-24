@@ -69,7 +69,7 @@ class GeneralPurposeDataset(Dataset):
         self._walker.sort()
         self._walker=[f for f in self._walker if f.split('/')[-1][0]!='.']
         
-		if load_fn == 'voxceleb':
+        if load_fn == 'voxceleb':
         	self.load_item_fn = load_voxceleb_item
         else:
             self.load_item_fn = load_item_fn

@@ -64,7 +64,13 @@ def train_gae(gae_model, adv_model, dataset, gae_optimizer, gae_loss, idxBeg,   
 	label_dict = pkl.load(open('external/speaker2int_7323.pkl','rb'))
 	start=idxBeg
 	end=idxEnd
-	dataset['train'].trim_dataset(start,end)
+
+	if start != None or end != None:
+		if start == None:
+			start = 0
+		if end == None:
+			end = -1
+		dataset['train'].trim_dataset(start,end)
 
 	# Create Dataloader
 	train_dataloader = DataLoader(dataset=dataset['train'],
