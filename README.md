@@ -53,10 +53,12 @@ You can find our adversarial samples [here](http://fsept11.github.io/FoolHD/samp
 ### Reference
 If you would like to cite our work, please use:
 ```
-@article{shamsabadi2020fool,
-  title={FoolHD: Fooling speaker identification by Highly imperceptible adversarial Disturbances},
-  author={Shamsabadi, Ali S. and Teixeira, Francisco S. and Abad, Alberto  and Raj, Bhiksha and Cavallaro, Andrea and Trancoso, Isabel},
-  journal={arXiv preprint arXiv},
-  year={2020}
+@article{shamsabadi2020foolhd,
+      title={FoolHD: Fooling speaker identification by Highly imperceptible adversarial Disturbances}, 
+      author={Ali Shahin Shamsabadi and Francisco Sepúlveda Teixeira and Alberto Abad and Bhiksha Raj and Andrea Cavallaro and Isabel Trancoso},
+      year={2020},
+      eprint={2011.08483},
+      archivePrefix={arXiv},
+      primaryClass={cs.SD}
 }
 ```
