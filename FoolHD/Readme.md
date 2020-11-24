@@ -1,15 +1,20 @@
 # FoolHD
 This is the official PyTorch implementation of [FoolHD: Fooling speaker identification by Highly imperceptible adversarial Disturbances](https://arxiv.org/pdf/2011.08483.pdf).
 
-### Clone repository
-``` 
-git clone https://github.com/fsept11/FoolHD.git 
-```
-### Setup environment
-```
-conda create --name FoolHD --file requirements.txt
-conda activate FoolHD 
-```
+### Setup
+1. Download source code from GitHub
+  ``` 
+  git clone https://github.com/fsept11/FoolHD.git 
+  ```
+2. Create [conda](https://docs.conda.io/en/latest/miniconda.html) virtual-environment with requirements
+  ```
+  conda create --name FoolHD --file requirements.txt
+  ```
+3. Activate conda environment 
+  ```
+  conda activate FoolHD 
+  ```
+  
 ### Usage
 ```
 usage: main.py [-h] [-task {untargeted,targeted,bim,fgsm}] [-load_model]
