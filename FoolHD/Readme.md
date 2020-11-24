@@ -38,5 +38,5 @@ optional arguments:
 ```
 
 ### Outputs
-* Adversarial audio files saved with the same name as the original audio files in FoolHD/samples directory
-* Metadata 
+* Adversarial audio files saved with the same name as the original audio files in FoolHD/samples directory;
+* Metadata with the following structure: filename, ground_truth identity, original predicted identity, adversarial predicted identity
