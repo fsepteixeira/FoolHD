@@ -1,3 +1,6 @@
+# FoolHD
+This is the official PyTorch implementation of [FoolHD: Fooling speaker identification by Highly imperceptible adversarial Disturbances](https://arxiv.org/pdf/2011.08483.pdf).
+
 ### Clone repository
 ``` 
 git clone https://github.com/fsept11/FoolHD.git 
