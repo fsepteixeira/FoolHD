@@ -2,11 +2,12 @@ import argparse, time
 
 import numpy as np
 np.random.seed(124)
+
 from utils.mdct import MDCT as mdct
+
 import pickle as pkl
-import pandas as pd
 from tqdm import tqdm
-from time import process_time 
+
 import torch
 import torch.nn as nn
 torch.manual_seed(124) 
@@ -171,12 +172,12 @@ def train_gae(gae_model, adv_model, dataset, gae_optimizer, gae_loss, idxBeg,   
 							text=('{}\t{}\t{}\t{}\t{}'.format(f[0][-1], y.cpu().detach().numpy()[0], clean_class.cpu().detach().numpy()[0], target_class.cpu().detach().numpy(), adv_class.cpu().detach().numpy()[0]))
 							gen_min_loss=gae_total_loss
 
-				# Update weights
+			
 				gae_model.zero_grad()
 				gae_total_loss.backward()
 				gae_optimizer.step()
 				torch.save(gae_model.state_dict(), save_path_gae)
-		# Update total loss and acc
+	
 		f_log_loss = open(f_name_loss, 'a+')		
 		if text == None:
 			f_log_loss.write('{}\t{}\t{}\t{}\t{}\t0\n'.format(f[0][-1], y.cpu().detach().numpy()[0], clean_class.cpu().detach().numpy()[0], target_class.cpu().detach().numpy(), adv_class.cpu().detach().numpy()[0]))

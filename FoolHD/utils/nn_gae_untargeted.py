@@ -8,7 +8,6 @@ import torch.nn as nn
 torch.manual_seed(124) 
 
 import pickle as pkl
-import pandas as pd
 
 from torch.nn import functional as F
 from torch.utils.data import DataLoader
