@@ -15,7 +15,7 @@ This is the official PyTorch implementation of [FoolHD: Fooling speaker identifi
   conda activate FoolHD 
   ```
   
-### Usage
+### Generate FoolHD adversarial audio files
 ```
 usage: main.py [-h] [-task {untargeted,targeted,bim,fgsm}] [-load_model]
                [-configuration CONFIGURATION] [-create_adversarial_examples]
@@ -36,3 +36,7 @@ optional arguments:
   --end END             Dataset sample end index (0 first/-1 last) - Useful to
                         compute adversarial samples in parallel.
 ```
+
+### Outputs
+* Adversarial audio files saved with the same name as the original audio files in 
+* Metadata 
