@@ -14,10 +14,14 @@ This is the official PyTorch implementation of [FoolHD: Fooling speaker identifi
   ```
   conda activate FoolHD 
   ```
-  
+
+### Description
+The code generate both targeted and untargeted adversarial audio files by training a gated convolutional autoencoder in the MDCT domain using a perceptual loss and an adversarial loss.
+
+
 ### Generate FoolHD adversarial audio files
 ```
-usage: main.py [-h] [-task {untargeted,targeted,bim,fgsm}] [-load_model]
+usage: main.py [-h] [-task {untargeted,targeted}] [-load_model]
                [-configuration CONFIGURATION] [-create_adversarial_examples]
                [-score_adversarial_examples] [--start START] [--end END]
 
