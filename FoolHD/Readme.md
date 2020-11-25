@@ -27,7 +27,7 @@ usage: main.py [-h] [-task {untargeted,targeted}] [-load_model]
 
 optional arguments:
   -h, --help            show this help message and exit
-  -task {untargeted,targeted,bim,fgsm}
+  -task {untargeted,targeted}
                         Which task to run. (e.g. untargeted, tageted)
   -load_model           Whether to load pre-trained model.
   -configuration CONFIGURATION
