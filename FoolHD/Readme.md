@@ -6,11 +6,15 @@ This is the official PyTorch implementation of [FoolHD: Fooling speaker identifi
   ``` 
   git clone https://github.com/fsept11/FoolHD.git 
   ```
-2. Create [conda](https://docs.conda.io/en/latest/miniconda.html) virtual-environment with requirements
+2. Go to FoolHD directory
+  ``` 
+  cd FoolHD 
+  ```
+3. Create [conda](https://docs.conda.io/en/latest/miniconda.html) virtual-environment with requirements
   ```
   conda create --name FoolHD --file requirements.txt
   ```
-3. Activate conda environment 
+4. Activate conda environment 
   ```
   conda activate FoolHD 
   ```
