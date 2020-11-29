@@ -12,6 +12,7 @@ This is the official PyTorch implementation of [FoolHD: Fooling speaker identifi
   ```
 3. Create [conda](https://docs.conda.io/en/latest/miniconda.html) virtual-environment with requirements
   ```
+  module load python3/anaconda
   conda create --name FoolHD --file requirements.txt
   ```
 4. Activate conda environment 
