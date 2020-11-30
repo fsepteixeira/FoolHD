@@ -32,3 +32,5 @@ If you would like to cite our work, please use:
       primaryClass={cs.SD}
 }
 ```
+### Acknowledgments
+The authors would like to thank Thomas Rolland and Catarina Botelho for their contributions in the implementation of the x-vector speaker identification network. This work was supported by Portuguese national funds through Fundação para a Ciência e a Tecnologia (FCT), with reference UIDB/50021/2020, and BD2018 ULisboa. We also wish to thank the Alan Turing Institute (EP/N510129/1), which is funded by the U.K. Engineering and Physical Sciences Research Council, for its support throughout the project PRIMULA.
