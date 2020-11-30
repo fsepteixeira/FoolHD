@@ -10,16 +10,20 @@ This is the official PyTorch implementation of [FoolHD: Fooling speaker identifi
   ``` 
   cd FoolHD/FoolHD 
   ```
-3. Create [conda](https://docs.conda.io/en/latest/miniconda.html) virtual-environment with requirements
+3. Create [conda](https://docs.conda.io/en/latest/miniconda.html) virtual-environment
   ```
   module load python3/anaconda
-  conda create --name FoolHD --file requirements.txt
-  ```
+  conda create --name FoolHD 
+  ```  
 4. Activate conda environment 
   ```
-  conda activate FoolHD 
+  source activate FoolHD 
   ```
-
+5. Install requirements
+   ```
+    pip install -r requirements.txt
+   ```
+   
 ### Description
 The code generate both targeted and untargeted adversarial audio files by training a gated convolutional autoencoder in the MDCT domain using a perceptual loss and an adversarial loss.
 
