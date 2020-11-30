@@ -172,7 +172,7 @@ def train_gae(gae_model, adv_model, dataset, gae_optimizer,
 				gae_optimizer.step()
 				torch.save(gae_model.state_dict(), save_path_gae)
 
-				print("Sample:", idxBeg + i,"of", idxEnd if idxEnd >= 0 else n_iterations, "-", f[-1][-1], "| Itr=" + str(itrs+1) + "/" + str(MaxItrs), "| Adv Loss:", "{:.3f}".format(adv_batch_loss.item()), "| Percpt Loss:", "{:.3f}".format(Freq_loss.item()), "\t\t\t\t\t\t", end="\r")
+				print("Sample:", idxBeg + i,"of", idxEnd if idxEnd >= 0 else n_iterations, "-", f[-1][-1], "| Itr=" + str(itrs+1) + "/" + str(MaxItrs), "| Adv Loss:", "{:.3f}".format(adv_batch_loss.item()), "| Percpt Loss:", "{:.3f}".format(Freq_loss.item()), "\t\t\t\t\t\t\t", end="\r")
 
 		# Update total loss and acc
 		f_log_loss = open(f_name_loss, 'a+')		
