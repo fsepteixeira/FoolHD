@@ -52,4 +52,4 @@ optional arguments:
 * Metadata with the following structure: filename, ground_truth identity, original predicted identity, adversarial predicted identity.
 
 ### Acknowledgments
-The authors would like to thank and acknowledge [Thomas Rolland](https://github.com/Usanter) and Catarina Botelho for their contributions in the development of the Pytorch implementation of the x-vector network used in this work. The original implementation of this network can be found [here](https://github.com/Usanter/Pytorch-X-vector).
+The authors would like to thank and acknowledge [Thomas Rolland](https://github.com/Usanter) and Catarina Botelho for their contributions in the development of the Pytorch implementation of the x-vector network used in this work.
