@@ -23,6 +23,8 @@ This is the official PyTorch implementation of [FoolHD: Fooling speaker identifi
   ```
   pip install -r requirements.txt
   ```
+6. Set the path to the dataset in line 106 of configuration file
+
    
 ### Description
 This code generates both targeted and untargeted adversarial audio files by training a gated convolutional autoencoder in the MDCT domain using a perceptual loss and an adversarial loss.
