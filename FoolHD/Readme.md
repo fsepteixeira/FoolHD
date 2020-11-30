@@ -30,7 +30,7 @@ The code generate both targeted and untargeted adversarial audio files by traini
 
 ### Generate FoolHD adversarial audio files
 ```
-usage: main.py [-h] [-task {untargeted,targeted}] [-load_model]
+python main.py [-h] [-task {untargeted,targeted}] [-load_model]
                [-configuration CONFIGURATION] [-create_adversarial_examples]
                [-score_adversarial_examples] [--start START] [--end END]
 
