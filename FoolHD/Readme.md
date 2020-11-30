@@ -49,4 +49,4 @@ optional arguments:
 
 ### Outputs
 * Adversarial audio files saved with the same name as the original audio files in FoolHD/samples directory; this directory can be changed in the configuration file.
-* Metadata with the following structure: filename, ground_truth identity, original predicted identity, adversarial predicted identity
+* Metadata with the following structure: filename, ground_truth identity, original predicted identity, adversarial predicted identity.
