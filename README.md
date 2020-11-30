@@ -15,7 +15,7 @@ Our results show that FoolHD generates highly imperceptible adversarial audio fi
 <p align="center"><img src="figs/BlockDiagram.png" alt="Block diagram" title="Block diagram of the proposed approach." width="60%" heigh="60%"/></p>
 <p align="center"><b>Fig 1. Block diagram of the proposed approach.</b></p>
 
-### Code available [here](https://github.com/fsept11/FoolHD/tree/main/FoolHD).
+### Code available [here](https://github.com/fsept11/FoolHD/tree/main/code).
 
 ### Adversarial audio samples available [here](http://fsept11.github.io/FoolHD/samples).
 
