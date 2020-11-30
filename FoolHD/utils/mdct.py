@@ -70,7 +70,6 @@ class MDCT(torch.nn.Module):
 
         # Pad data with win_len / 2 on either side
         num_batches, num_samples = input_data.size()
-
         input_data = input_data.view(num_batches, 1, num_samples)
         input_data = F.pad(input_data.unsqueeze(1), (np.ceil(self.pad_amount).astype(int), np.floor(self.pad_amount).astype(int),0,0), mode='constant')
         input_data = input_data.squeeze(1)

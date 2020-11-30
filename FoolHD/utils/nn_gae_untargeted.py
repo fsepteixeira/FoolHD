@@ -1,4 +1,4 @@
-import argparse, time
+import os, argparse, time
 
 import numpy as np
 np.random.seed(124)
@@ -26,7 +26,7 @@ from utils.extractor import MFCCVadCMVNPadBatch as mfcc_extractor
 from utils.torchaudio_local import *
 
 def createLogFiles(log_name):
-	f_name = './log_{}.txt'.format(log_name)
+	f_name = '{}'.format(log_name)
 	f_file = open(f_name,"w")
 	return f_file, f_name
 	
@@ -49,9 +49,10 @@ def compile_gae(gae_model, learning_rate=0.0001, weight_decay=0.0,
 
 	return loss_gae, gae_optimizer
 
-def train_gae(gae_model, adv_model, dataset, gae_optimizer, gae_loss, idxBeg,    idxEnd,  
-					alphas=[0.5,0.5], epochs=0, batch_size=32, lr_decay=0.1, period=21, num_workers=20, shuffle=False, begin=0,
-					save_path_gae="", save_path_gen="",  save_intermediate_path_gae="", save_intermediate_path_gen="", device='cuda:0', **kwargs):
+def train_gae(gae_model, adv_model, dataset, gae_optimizer, 
+			  idxBeg=0, idxEnd=-1, num_workers=20,
+			  sample_dir="samples/", log_file="", save_path_gae="", 
+			  save_intermediate_path_gae="", device='cuda:0', **kwargs):
 	
 	"""
 	Train the model with the given training data
@@ -59,31 +60,32 @@ def train_gae(gae_model, adv_model, dataset, gae_optimizer, gae_loss, idxBeg,   
 	:param y:
 	:param epochs:
 	"""
-	gae_model.mdct.pad_amount=640
+	gae_model.mdct.pad_amount = 640
+
 	label_dict = pkl.load(open('external/speaker2int_7323.pkl','rb'))
-	start=idxBeg
-	end=idxEnd
+	start = idxBeg
+	end   = idxEnd
 
 	if start != None or end != None:
 		if start == None:
 			start = 0
 		if end == None:
 			end = -1
-		dataset['train'].trim_dataset(start,end)
+		dataset.trim_dataset(start,end)
 
 	# Create Dataloader
-	train_dataloader = DataLoader(dataset=dataset['train'],
-								  batch_size=batch_size, 
-								  shuffle=False,
-								  drop_last=True,
-								  num_workers=num_workers,
-								  collate_fn=PadBatch())
+	dataloader = DataLoader(dataset=dataset,
+  						    batch_size=1, 
+							shuffle=False,
+							drop_last=True,
+							num_workers=num_workers,
+							collate_fn=PadBatch())
 	gae_epoch_loss = 0
 	gen_epoch_loss = 0
 	adv_epoch_loss = 0
 	number_of_samples = 0
 
-	n_iterations = len(train_dataloader)
+	n_iterations = len(dataloader)
 
 	adv_model.eval()
 	extractor = mfcc_extractor()
@@ -91,16 +93,17 @@ def train_gae(gae_model, adv_model, dataset, gae_optimizer, gae_loss, idxBeg,   
 	for param in adv_model.parameters():
 		param.requires_grad = False
 
-	mdct_op = mdct().to(device)	
-	
-	# Loop over all the training data for generator	
-	f_log_all, f_name_all   = createLogFiles('all_{}to{}'.format(idxBeg,idxEnd))
-	f_log_loss, f_name_loss = createLogFiles('loss_{}to{}'.format(idxBeg,idxEnd))
+	# Loop over all the training data for generator
+
+	if not os.path.exists('logs/'):
+		os.makedirs('logs/')
+	f_log_all, f_name_all   = createLogFiles('logs/'+log_file+'all_{}to{}.log'.format(idxBeg,idxEnd if idxEnd>=0 else n_iterations))
+	f_log_loss, f_name_loss = createLogFiles('logs/'+log_file+'loss_{}to{}.log'.format(idxBeg,idxEnd if idxEnd>=0 else n_iterations))
 
 	cos = nn.CosineSimilarity(dim=2, eps=1e-6)
-	for i, (train_data, y_temp, f) in tqdm(enumerate(train_dataloader)):
+	for i, (train_data, y_temp, f) in tqdm(enumerate(dataloader)):
 
-		print(idxBeg+i,idxEnd, f[-1][-1])
+		print(idxBeg + i,idxEnd if idxEnd >= 0 else n_iterations, f[-1][-1], end="\r")
 		if len(train_data)<1:
 			continue
 
@@ -121,7 +124,7 @@ def train_gae(gae_model, adv_model, dataset, gae_optimizer, gae_loss, idxBeg,   
 		clean_class  	 = clean_idx_sorted[:,0]
 		clean_class_prob = clean_probs_sorted[:,0]
 
-		adv_path="samples/{}".format(f[0][-2])
+		adv_path = sample_dir+"{}".format(f[0][-2])
 		if not os.path.exists(adv_path):
 			os.makedirs(adv_path)
 
@@ -133,16 +136,14 @@ def train_gae(gae_model, adv_model, dataset, gae_optimizer, gae_loss, idxBeg,   
 		gen_min_loss=100
 		MaxItrs=500
 		text=None
-		for itrs in range(MaxItrs):
-				
+		for itrs in range(MaxItrs):	
 				# Foward pass
 				gae_prediction = gae_model.forward(X)
 				gae_prediction = gae_prediction.squeeze(dim=1)
 
 				# Perceptual loss	
-				pred_mfccs_vad, pred_mfccs, labels_preds = *extractor(gae_prediction.transpose(1,2), before_vad=True),y		
+				pred_mfccs_vad, pred_mfccs, labels_preds = *extractor(gae_prediction.transpose(1,2), before_vad=True), y
 				Freq_loss = (1-cos(pred_mfccs, x_mfccs)).sum()
-
 				
 				adv_logits = adv_model.forward(pred_mfccs_vad)
 				adv_probs  = F.log_softmax(adv_logits, dim=-1).data.squeeze(dim=1)
@@ -157,19 +158,21 @@ def train_gae(gae_model, adv_model, dataset, gae_optimizer, gae_loss, idxBeg,   
 				gae_total_loss = Freq_loss+adv_batch_loss
 
 				if (adv_class.cpu().detach().numpy()[0] != clean_class.cpu().detach().numpy()[0]): #and gae_total_loss<0.0007:
-					if gae_total_loss < gen_min_loss:
-								f_log_all = open(f_name_all, 'a+')
-								f_log_all.write('{}\t{}\t{}\t{}\t{}\t{:.5f}\n'.format(f[0][-1],  itrs+1, y.cpu().detach().numpy()[0], clean_class.cpu().detach().numpy()[0], adv_class.cpu().detach().numpy()[0], gae_total_loss))
-								f_log_all.close()
-								torchaudio.save("{}/{}.wav".format(adv_path,f[0][-1]),  gae_prediction.squeeze().detach().cpu(), 8000)
-								text=('{}\t{}\t{}\t{}'.format(f[0][-1], y.cpu().detach().numpy()[0], clean_class.cpu().detach().numpy()[0], adv_class.cpu().detach().numpy()[0]))
-								gen_min_loss=gae_total_loss
+					if Freq_loss < gen_min_loss:
+						f_log_all = open(f_name_all, 'a+')
+						f_log_all.write('{}\t{}\t{}\t{}\t{}\t{:.5f}\n'.format(f[0][-1],  itrs+1, y.cpu().detach().numpy()[0], clean_class.cpu().detach().numpy()[0], adv_class.cpu().detach().numpy()[0], gae_total_loss))
+						f_log_all.close()
+						torchaudio.save("{}/{}.wav".format(adv_path,f[0][-1]),  gae_prediction.squeeze().detach().cpu(), 8000)
+						text=('{}\t{}\t{}\t{}'.format(f[0][-1], y.cpu().detach().numpy()[0], clean_class.cpu().detach().numpy()[0], adv_class.cpu().detach().numpy()[0]))
+						gen_min_loss = Freq_loss
 
 				# Update weights
 				gae_model.zero_grad()
 				gae_total_loss.backward()
 				gae_optimizer.step()
 				torch.save(gae_model.state_dict(), save_path_gae)
+
+				print("Sample:", idxBeg + i,"of", idxEnd if idxEnd >= 0 else n_iterations, "-", f[-1][-1], "| Itr=" + str(itrs+1) + "/" + str(MaxItrs), "| Adv Loss:", "{:.3f}".format(adv_batch_loss.item()), "| Percpt Loss:", "{:.3f}".format(Freq_loss.item()), "\t\t\t\t\t\t", end="\r")
 
 		# Update total loss and acc
 		f_log_loss = open(f_name_loss, 'a+')		
@@ -178,4 +181,5 @@ def train_gae(gae_model, adv_model, dataset, gae_optimizer, gae_loss, idxBeg,   
 		else:
 			f_log_loss.write(text+'\t1\n')
 		f_log_loss.close()
+
 	return adv_class

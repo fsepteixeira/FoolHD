@@ -1,7 +1,7 @@
 import torch
 from torch import nn
 
-from modules.TDNNLayer 				 import TDNN as TDNNLayer
+from modules.TDNNLayer_original		 import TDNN as TDNNLayer
 from modules.StatisticsPoolingLayers import StatisticsPooling
 
 class TDNNetwork(nn.Module):

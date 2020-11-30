@@ -48,9 +48,9 @@ def compile_gae(gae_model, learning_rate=0.0001, weight_decay=0.0,
 		
 	return loss_gae, gae_optimizer
 
-def train_gae(gae_model, adv_model, dataset, gae_optimizer, gae_loss, idxBeg,    idxEnd,  
-					alphas=[0.5,0.5], epochs=0, batch_size=32, lr_decay=0.1, period=21, num_workers=20, shuffle=False, begin=0,
-					save_path_gae="", save_path_gen="",  save_intermediate_path_gae="", save_intermediate_path_gen="", device='cuda:0', **kwargs):
+def train_gae(gae_model, adv_model, dataset, gae_optimizer, idxBeg,    idxEnd,  
+		      num_workers=20, shuffle=False, save_path_gae="", save_intermediate_path_gae="", 
+			  log_file="logs/log.log", sample_dir="samples/", device='cuda:0', **kwargs):
 	
 	"""
 	Train the model with the given training data
@@ -91,17 +91,15 @@ def train_gae(gae_model, adv_model, dataset, gae_optimizer, gae_loss, idxBeg,   
 	for param in adv_model.parameters():
 		param.requires_grad = False
 
-	mdct_op        = mdct().to(device)	
-
 	# Loop over all the training data for generator	
-	f_log_all, f_name_all = createLogFiles('all_{}to{}'.format(idxBeg,idxEnd))
-	f_log_loss, f_name_loss = createLogFiles('loss_{}to{}'.format(idxBeg,idxEnd))
+	f_log_all, f_name_all   = createLogFiles('logs/'+log_file+'all_{}to{}.log'.format(idxBeg,idxEnd if idxEnd>=0 else n_iterations))
+	f_log_loss, f_name_loss = createLogFiles('logs/'+log_file+'loss_{}to{}.log'.format(idxBeg,idxEnd if idxEnd>=0 else n_iterations))
 
 	cos = nn.CosineSimilarity(dim=2, eps=1e-6)
 	for i, (train_data, y_temp, f) in tqdm(enumerate(train_dataloader)):
 
-		print(idxBeg+i,idxEnd, f[-1][-1])
-		if len(train_data)<1:
+		print(idxBeg+i,idxEnd, f[-1][-1], end="\r")
+		if len(train_data) < 1:
 			continue
 
 		if label_dict:
@@ -112,7 +110,7 @@ def train_gae(gae_model, adv_model, dataset, gae_optimizer, gae_loss, idxBeg,   
 
 		# send data to the GPU
 		X = X.to(device)
-		x_mfccs_vad, x_mfccs, labels 		 = *extractor(X.transpose(1,2), before_vad=True),y
+		x_mfccs_vad, x_mfccs, labels = *extractor(X.transpose(1,2), before_vad=True), y
 
 		clean_logits = adv_model.forward(x_mfccs_vad)
 
@@ -122,7 +120,7 @@ def train_gae(gae_model, adv_model, dataset, gae_optimizer, gae_loss, idxBeg,   
 		clean_class  	 = clean_idx_sorted[:,0]
 		clean_class_prob = clean_probs_sorted[:,0]
 
-		adv_path="samples/{}".format(f[0][-2])
+		adv_path = sample_dir+"{}".format(f[0][-2])
 		if not os.path.exists(adv_path):
 			os.makedirs(adv_path)
 
@@ -178,6 +176,7 @@ def train_gae(gae_model, adv_model, dataset, gae_optimizer, gae_loss, idxBeg,   
 				gae_optimizer.step()
 				torch.save(gae_model.state_dict(), save_path_gae)
 	
+				print("Sample:", idxBeg + i,"of", idxEnd if idxEnd >= 0 else n_iterations, "-", f[-1][-1], "| Itr=" + str(itrs+1) + "/" + str(MaxItrs), "| Adv Loss:", "{:.3f}".format(adv_batch_loss.item()), "| Percpt Loss:", "{:.3f}".format(Freq_loss.item()), "\t\t\t\t\t\t", end="\r")
 		f_log_loss = open(f_name_loss, 'a+')		
 		if text == None:
 			f_log_loss.write('{}\t{}\t{}\t{}\t{}\t0\n'.format(f[0][-1], y.cpu().detach().numpy()[0], clean_class.cpu().detach().numpy()[0], target_class.cpu().detach().numpy(), adv_class.cpu().detach().numpy()[0]))
