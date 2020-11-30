@@ -8,7 +8,7 @@ This is the official PyTorch implementation of [FoolHD: Fooling speaker identifi
   ```
 2. Go to FoolHD code directory
   ``` 
-  cd FoolHD/FoolHD 
+  cd FoolHD/code 
   ```
 3. Create [conda](https://docs.conda.io/en/latest/miniconda.html) virtual-environment
   ```
