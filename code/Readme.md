@@ -39,7 +39,7 @@ optional arguments:
   -h, --help            show this help message and exit
   -task {untargeted,targeted}
                         Which task to run. (e.g. untargeted, tageted)
-  -load_model           Whether to load pre-trained model.
+  -load_model           Whether to load pre-trained GAE model.
   -configuration CONFIGURATION
                         Configuration file - This file needs to be modified in order to accomodate for data path changes. 
   --start START         Dataset sample start index (0 first/-1 last) - Useful
