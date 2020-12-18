@@ -72,7 +72,6 @@ class AdversarialLoss(nn.Module):
 
 	def forward(self, logits, target):
 
-
 		target_one_hot = torch.eye(self.num_classes).type(logits.type())[target.long()]
 		
 		real = torch.sum(target_one_hot*logits.squeeze())

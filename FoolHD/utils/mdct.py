@@ -25,7 +25,7 @@ def kbd_window_(win_len, filt_len, alpha=4):
     return torch.FloatTensor(window)[:,None]
 
 class MDCT(torch.nn.Module):
-    def __init__(self, filter_length=1024, window_length=None, **kwargs):
+    def __init__(self, filter_length=640, window_length=None, **kwargs):
         """
         This module implements an MDCT using 1D convolution and 1D transpose convolutions.
         This code only implements with hop lengths that are half the filter length (50% overlap

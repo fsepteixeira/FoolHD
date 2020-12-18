@@ -2,7 +2,9 @@ import torch
 import torch.nn as nn
 
 from modules.GatedConvolutionalLayer import GatedConvolution
+
 from utils.mdct import MDCT as mdct
+from torch_stft import STFT as stft
 
 class GatedAutoEncoder(nn.Module):
 
@@ -11,7 +13,7 @@ class GatedAutoEncoder(nn.Module):
 		Out: (N, sentence_len, embd_size)
 	'''
 
-	def __init__(self, parameters_encoder, parameters_decoder, parameters_conv, frequency_domain=False, parameters_freq={}, **kwargs):
+	def __init__(self, parameters_encoder, parameters_decoder, parameters_conv, transform_type='mdct', frequency_domain=False, parameters_freq={}, **kwargs):
 
 		super(GatedAutoEncoder, self).__init__()
 
@@ -26,7 +28,13 @@ class GatedAutoEncoder(nn.Module):
 
 		if self.frequency_domain:
 			self.parameters_freq = parameters_freq
-			self.mdct        = mdct()
+			self.transform_type  = transform_type
+			if transform_type == 'mdct':
+				self.transform = mdct(**parameters_freq)
+			elif transform_type == 'stft':
+				self.transform = stft(**parameters_freq)
+			else:
+				raise NotImplementedError("Transform {} is not implemented.".format(self.transform_type))
 
 	def _init_encoder_decoder_(self, params):
 
@@ -51,8 +59,14 @@ class GatedAutoEncoder(nn.Module):
 
 	def forward(self, input):
 		if self.frequency_domain:
-			input_MDCT = self.mdct.transform(input.squeeze(dim=2))
-			input_MDCT_input = self.mdct.inverse(input_MDCT)
+			if self.transform_type == 'mdct':
+				input_MDCT = self.transform.transform(input.squeeze(dim=0))
+				input_MDCT_input = self.transform.inverse(input_MDCT)
+			elif self.transform_type == 'stft':
+				input_MDCT, phase = self.transform.transform(input.squeeze(dim=2))
+				input_MDCT_input = self.transform.inverse(input_MDCT, phase)
+			else:
+				raise NotImplementedError("Transform {} is not implemented.".format(self.transform_type))
 
 		input_MDCT_normalised = (input_MDCT-input_MDCT.mean())/input_MDCT.std()
 		input_MDCT_normalised = input_MDCT_normalised.unsqueeze(dim=1)
@@ -64,7 +78,13 @@ class GatedAutoEncoder(nn.Module):
 
 		X_deNormalised= X*input_MDCT.std()+input_MDCT.mean()
 		if self.frequency_domain:
-			Y = self.mdct.inverse(X_deNormalised)
+			if self.transform_type == 'mdct':
+				Y = self.transform.inverse(X_deNormalised)
+				Y= input.abs().max()*Y/Y.abs().max()
+			elif self.transform_type == 'stft':
+				Y = self.transform.inverse(X_deNormalised, phase)
+			else:
+				raise NotImplementedError("Transform {} is not implemented.".format(self.transform_type))
 			Y= input.abs().max()*Y/Y.abs().max()
 
 		return Y.unsqueeze(dim=-1)

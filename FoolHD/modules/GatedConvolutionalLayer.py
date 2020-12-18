@@ -4,8 +4,7 @@ import torch.nn as nn
 class GatedConvolution(nn.Module):
 	def __init__(self, input_channels, output_channels, 
 					   kernel_size, stride=1, padding=0, 
-					   padding_mode='zeros', dilation=1, 
-					   groups=1, bias=False, activation_fn=nn.Sigmoid(), 
+					   dilation=1, groups=1, bias=False, activation_fn=nn.Sigmoid(), 
 					   **kwargs):
 
 		super(GatedConvolution, self).__init__()
@@ -15,17 +14,16 @@ class GatedConvolution(nn.Module):
 			'out_channels' : output_channels,
 			'kernel_size'  	  : kernel_size,
 			'stride'	      : stride,
-			'padding'	      : padding,
-			'padding_mode'    : padding_mode,
 			'dilation'	      : dilation,
 			'groups'	      : groups,
 			'bias'		      : bias
 		}
 
-		self.conv = nn.Conv2d(**self.parameters)
+		self.pad = nn.ConstantPad2d(padding, value=0)
+		self.conv = nn.Sequential(self.pad, nn.Conv2d(**self.parameters))
 		self.activation = activation_fn
 
-		self.gate = nn.Sequential(nn.Conv2d(**self.parameters), self.activation)
+		self.gate = nn.Sequential(self.pad, nn.Conv2d(**self.parameters), self.activation)
 	
 	def forward(self, X):
 		return self.conv(X) * self.gate(X)

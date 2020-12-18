@@ -53,7 +53,7 @@ def load_voxceleb_item(fileid, path, ext_audio):
         return [], None, None
 
     return (waveform, speaker_id, fileid.split("/"))    
-        
+
 class GeneralPurposeDataset(Dataset):
 
     _ext_audio = ".wav"

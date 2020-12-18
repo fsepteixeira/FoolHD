@@ -64,46 +64,55 @@ class VAD(nn.Module):
 		self.unfold_size = 2 * context + 1
 		self.pad = pad
 
-	def __call__(self, input):
+	def __call__(self, input, return_vad=False, pre_computed_vad=False, vad=None):
 
 		assert(input.dim() == 3)
-
-		energy_threshold = torch.tensor([self.threshold]).to(input.device)
 
 		# Input should have shape (batch_size, seq_len, n_feats)
 		batch_size, seq_len, n_feats = input.size()
 
-		log_energy = input[:,:,0]			# Get the energy MFCC for all samples in
-											# the batch and all frames in the sequence
-		if self.diff_zero:
-			energy_threshold = energy_threshold + self.mean_scale * log_energy.mean(dim=1)
-
-		mask = torch.ones_like(log_energy)								# Mask with same shape as log_energy
-		mask = F.pad(mask, pad=(self.context, self.context), value=1.0) # Pad borders with symmetric context
-		mask = mask.unfold(dimension=1, size=self.unfold_size, step=1)	# Get all (overlapping) "windows" of "convolution"
-
-		den_count = mask.sum(dim=-1)	# Number of values included in each window
-										# Required due to padding, otherwise it would always be (2*context + 1)
-		# Pad borders with symmetric context
-		log_energy = F.pad(log_energy, pad=(self.context, self.context))				  
-
-		# Get all (overlapping) "windows" of "convolution"
-		log_energy = log_energy.unfold(dimension=1, size=self.unfold_size, step=1) 
-
-		# Number of values in window above threshold
-		num_count = log_energy.gt(energy_threshold.unsqueeze(-1).unsqueeze(-1)).sum(dim=-1)
-
-		# If the number of frames in window above the
-		# threshold is larger than den_count*cte  -> Voiced Frame
-		# Else: unvoiced
-		vad_frames = num_count.ge(den_count*self.proportion_threshold)
 		# Remove unvoiced frames from input and return
-		input = [torch.masked_select(input[i], mask=vad_frames[i].unsqueeze(-1)).reshape(-1, n_feats) for i in range(0,batch_size)]
+		if pre_computed_vad:
+			vad_frames = vad
+			input = [torch.masked_select(input[i], mask=vad_frames[i].unsqueeze(-1)).reshape(-1, n_feats) for i in range(0,batch_size)]
+
+		else:
+			energy_threshold = torch.tensor([self.threshold]).to(input.device)
+
+			log_energy = input[:,:,0]			# Get the energy MFCC for all samples in
+												# the batch and all frames in the sequence
+			if self.diff_zero:
+				energy_threshold = energy_threshold + self.mean_scale * log_energy.mean(dim=1)
+
+			mask = torch.ones_like(log_energy)								# Mask with same shape as log_energy
+			mask = F.pad(mask, pad=(self.context, self.context), value=1.0) # Pad borders with symmetric context
+			mask = mask.unfold(dimension=1, size=self.unfold_size, step=1)	# Get all (overlapping) "windows" of "convolution"
+
+			den_count = mask.sum(dim=-1)	# Number of values included in each window
+											# Required due to padding, otherwise it would always be (2*context + 1)
+			# Pad borders with symmetric context
+			log_energy = F.pad(log_energy, pad=(self.context, self.context))				  
+	
+			# Get all (overlapping) "windows" of "convolution"
+			log_energy = log_energy.unfold(dimension=1, size=self.unfold_size, step=1) 
+
+			# Number of values in window above threshold
+			num_count = log_energy.gt(energy_threshold.unsqueeze(-1).unsqueeze(-1)).sum(dim=-1)
+
+			# If the number of frames in window above the
+			# threshold is larger than den_count*cte  -> Voiced Frame
+			# Else: unvoiced
+			vad_frames = num_count.ge(den_count*self.proportion_threshold)
+
+			input = [torch.masked_select(input[i], mask=vad_frames[i].unsqueeze(-1)).reshape(-1, n_feats) for i in range(0,batch_size)]
 
 		if self.pad:
 			input = pad_sequence(input, batch_first=True)
 
-		return input
+		if return_vad:
+			return input, vad_frames
+		else:
+			return input
 
 class CMVN(nn.Module):
 
@@ -118,25 +127,25 @@ class CMVN(nn.Module):
 		if self.frames % 2 == 0:	# Only centered cmvn window considered
 			self.frames += 1
 
-	def __call__(self, input):
+	def __call__(self, X):
 
 		if not self.mean and not self.std:
-			return input
+			return X
 
 		# Input should have shape (batch_size, seq_len, n_feats)
-		assert(input.dim() == 3)
-		batch_size, seq_len, n_feats = input.size()
+		assert(X.dim() == 3)
+		batch_size, seq_len, n_feats = X.size()
 
 		if seq_len == 0:
-			return input
+			return X
 
-		windows = F.pad(input, pad=(0, 0, floor((self.frames-1)/2), ceil((self.frames-1)/2), 0, 0)) # Pad borders with symmetric context -> Assuming centered window
+		windows = F.pad(X, pad=(0, 0, floor((self.frames-1)/2), ceil((self.frames-1)/2), 0, 0)) # Pad borders with symmetric context -> Assuming centered window
 		windows = windows.unfold(dimension=1, size=self.frames, step=self.step_size)  # Get all (overlapping) "windows" of "convolution"
 
 		if self.mean:
-			input -= windows.mean(dim=-1)
+			X -= windows.mean(dim=-1)
 
 		if self.std:
-			input /= windows.std(dim=-1)
+			X /= windows.std(dim=-1)
 
-		return input
+		return X

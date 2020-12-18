@@ -45,7 +45,7 @@ class MFCCVadCMVNPadBatch(object):
 
 		self.collate = collate
 
-	def __call__(self, data, before_vad=False):
+	def __call__(self, data, before_vad=False, return_vad=False, vad=None, pre_computed_vad=False):
 	
 		# Get data arrays
 		if self.collate:
@@ -53,19 +53,20 @@ class MFCCVadCMVNPadBatch(object):
 		else:
 			X = data
 
-		if len(X) < 1:
-			if not collate:
-				return []
-			else:
-				return [], [], []
-
 		# Extract mfccs
 		X_out = torch.stack([self.mfccs(X[i]) for i in range(0, len(X))])
+
+		if len(X_out.shape) == 2:
+			X_out = X_out.unsqueeze(dim=0)
+
 		if before_vad:
 			X_mfcc = X_out
 
 		# Compute VAD and pad sequence
-		X_out = self.vad(X_out)
+		if return_vad:
+			X_out, vad = self.vad(X_out, return_vad, pre_computed_vad, vad)
+		else:
+			X_out = self.vad(X_out, return_vad, pre_computed_vad, vad)
 
 		# Perform CMVN
 		X_out = self.cmvn(X_out)
@@ -78,10 +79,19 @@ class MFCCVadCMVNPadBatch(object):
 				return_list = [X_out, y]
 			if before_vad:
 				return_list.append(X_mfcc)	
+			if return_vad:
+				return_list.append(vad)
+
 			return_list.append(f)
 			return tuple(return_list)
 		else:
 			if not before_vad:
-				return X_out
+				if return_vad:
+					return X_out, vad
+				else:
+					return X_out
 			else:
-				return X_out, X_mfcc
+				if return_vad:
+					return X_out, X_mfcc, vad
+				else:
+					return X_out, X_mfcc
