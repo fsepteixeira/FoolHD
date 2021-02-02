@@ -1,4 +1,4 @@
-## [FoolHD](https://fsept11.github.io/FoolHD/): Fooling speaker identification by Highly imperceptible adversarial Disturbances
+## [FoolHD](https://fsepteixeira.github.io/FoolHD/): Fooling speaker identification by Highly imperceptible adversarial Disturbances
 <emph>Ali Shahin Shamsabadi<sup>1*</sup>, Francisco Sepúlveda Teixeira<sup>2*</sup>, Alberto Abad<sup>2</sup>, Bhiksha Raj<sup>3</sup>, Andrea Cavallaro<sup>1</sup>, Isabel Trancoso<sup>2</sup></emph>
 
 <sup>1</sup>CIS, Queen Mary University of London, UK.  
@@ -15,9 +15,9 @@ Our results show that FoolHD generates highly imperceptible adversarial audio fi
 <p align="center"><img src="figs/BlockDiagram.png" alt="Block diagram" title="Block diagram of the proposed approach." width="60%" heigh="60%"/></p>
 <p align="center"><b>Fig 1. Block diagram of the proposed approach.</b></p>
 
-### Code available [here](https://github.com/fsept11/FoolHD/tree/main/code).
+### Code available [here](https://github.com/fsepteixeira/FoolHD/tree/main/code).
 
-### Adversarial audio samples available [here](http://fsept11.github.io/FoolHD/samples).
+### Adversarial audio samples available [here](http://fsepteixeira.github.io/FoolHD/samples).
 
 
 ### Reference
