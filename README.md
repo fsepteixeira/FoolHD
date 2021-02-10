@@ -1,11 +1,22 @@
 ## [FoolHD](https://fsepteixeira.github.io/FoolHD/): Fooling speaker identification by Highly imperceptible adversarial Disturbances
-<emph>Ali Shahin Shamsabadi<sup>1*</sup>, Francisco Sepúlveda Teixeira<sup>2*</sup>, Alberto Abad<sup>2</sup>, Bhiksha Raj<sup>3</sup>, Andrea Cavallaro<sup>1</sup>, Isabel Trancoso<sup>2</sup></emph>
 
+Official repository containing the source code and adversarial samples of FoolHD a work on highly imperceptible adversarial examples against speaker identification, accepted to IEEE's International Conference on Acoustics, Speech and Signal Processing (ICASSP), Toronto, Ontario, Canada, 6-11 June, 2021.
+
+# Authors
+- Ali Shahin Shamsabadi<sup>1*</sup>, 
+- Francisco Sepúlveda Teixeira<sup>2*</sup>, 
+- Alberto Abad<sup>2</sup>, 
+- Bhiksha Raj<sup>3</sup>, 
+- Andrea Cavallaro<sup>1</sup>, 
+- Isabel Trancoso<sup>2</sup></emph>
+
+</li>
 <sup>1</sup>CIS, Queen Mary University of London, UK.  
 <sup>2</sup>INESC-ID/IST, University of Lisbon, Portugal.  
 <sup>3</sup>Carnegie Mellon University, USA.
 
 <sup>\*</sup>Authors contributed equally.  
+
 
 Speaker identification models are vulnerable to carefully designed adversarial perturbations of their input signals that induce misclassification. 
 In this work, we propose a white-box steganography-inspired adversarial attack that generates imperceptible adversarial  perturbations against a speaker identification model.
@@ -23,13 +34,11 @@ Our results show that FoolHD generates highly imperceptible adversarial audio fi
 ### Reference
 If you would like to cite our work, please use:
 ```
-@article{shamsabadi2020foolhd,
+@inproceedings{shamsabadi2020foolhd,
       title={FoolHD: Fooling speaker identification by Highly imperceptible adversarial Disturbances}, 
       author={Ali Shahin Shamsabadi and Francisco Sepúlveda Teixeira and Alberto Abad and Bhiksha Raj and Andrea Cavallaro and Isabel Trancoso},
-      year={2020},
-      eprint={2011.08483},
-      archivePrefix={arXiv},
-      primaryClass={cs.SD}
+      year={2021},
+      booktitle={Accepted to IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
 }
 ```
 ### Acknowledgments
