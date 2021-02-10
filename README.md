@@ -1,6 +1,6 @@
 ## FoolHD: Fooling speaker identification by Highly imperceptible adversarial Disturbances
 
-This is the official repository of [FoolHD: Fooling speaker identification by Highly imperceptible adversarial Disturbances](https://arxiv.org/abs/2011.08483), a work published in the IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), Toronto, Ontario, Canada, 6-11 June, 2021.
+This is the official repository of [FoolHD: Fooling speaker identification by Highly imperceptible adversarial Disturbances](https://arxiv.org/abs/2011.08483), a work accepted to the IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP), Toronto, Ontario, Canada, 6-11 June, 2021.
 
 ### Authors
 - Ali Shahin Shamsabadi<sup>1*</sup>, 
@@ -39,7 +39,7 @@ If you would like to cite our work, please use:
       year={2021},
       month={June},
       address={Toronto, Canada},
-      booktitle={Proceedings of the 46th IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
+      booktitle={Accepted to the 46th IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
 }
 ```
 ### Acknowledgments
