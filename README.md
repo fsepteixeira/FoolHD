@@ -1,6 +1,6 @@
 ## [FoolHD](https://fsepteixeira.github.io/FoolHD/): Fooling speaker identification by Highly imperceptible adversarial Disturbances
 
-Official repository containing the source code and adversarial samples of FoolHD a work on highly imperceptible adversarial examples against speaker identification, accepted to IEEE's International Conference on Acoustics, Speech and Signal Processing (ICASSP), Toronto, Ontario, Canada, 6-11 June, 2021.
+Repository containing the source code and adversarial samples of FoolHD, a work on highly imperceptible adversarial examples against speaker identification, accepted to IEEE's International Conference on Acoustics, Speech and Signal Processing (ICASSP), Toronto, Ontario, Canada, 6-11 June, 2021.
 
 ### Authors
 - Ali Shahin Shamsabadi<sup>1*</sup>, 
@@ -37,6 +37,8 @@ If you would like to cite our work, please use:
       title={FoolHD: Fooling speaker identification by Highly imperceptible adversarial Disturbances}, 
       author={Ali Shahin Shamsabadi and Francisco Sepúlveda Teixeira and Alberto Abad and Bhiksha Raj and Andrea Cavallaro and Isabel Trancoso},
       year={2021},
+      month={June},
+      address={Toronto, Canada},
       booktitle={Accepted to IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)},
 }
 ```
