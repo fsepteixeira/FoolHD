@@ -4,7 +4,7 @@ This is the official PyTorch implementation of [FoolHD: Fooling speaker identifi
 ### Setup
 1. Download source code from GitHub
   ``` 
-  git clone https://github.com/fsept11/FoolHD.git 
+  git clone https://github.com/fsepteixeira/FoolHD.git 
   ```
 2. Go to FoolHD code directory
   ``` 
