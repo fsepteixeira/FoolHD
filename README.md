@@ -33,7 +33,7 @@ Our results show that FoolHD generates highly imperceptible adversarial audio fi
 ### Reference
 If you would like to cite our work, please use:
 ```
-@inproceedings{shamsabadi2020foolhd,
+@inproceedings{shamsabadi2021foolhd,
       title={FoolHD: Fooling speaker identification by Highly imperceptible adversarial Disturbances}, 
       author={Ali Shahin Shamsabadi and Francisco Sepúlveda Teixeira and Alberto Abad and Bhiksha Raj and Andrea Cavallaro and Isabel Trancoso},
       year={2021},
