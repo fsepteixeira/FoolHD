@@ -1,4 +1,4 @@
-## [FoolHD](https://fsepteixeira.github.io/FoolHD/): Fooling speaker identification by Highly imperceptible adversarial Disturbances
+## FoolHD: Fooling speaker identification by Highly imperceptible adversarial Disturbances
 
 Repository containing the source code and adversarial samples of [FoolHD](https://arxiv.org/abs/2011.08483), a work on highly imperceptible adversarial examples against speaker identification, accepted to IEEE's International Conference on Acoustics, Speech and Signal Processing (ICASSP), Toronto, Ontario, Canada, 6-11 June, 2021.
 
