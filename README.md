@@ -44,4 +44,4 @@ If you would like to cite our work, please use:
 ```
 ### Acknowledgments
 The authors would like to thank Thomas Rolland and Catarina Botelho for their contributions in the implementation of the x-vector speaker identification network. 
-This work was supported by Portuguese national funds through Fundação para a Ciência e a Tecnologia (FCT), with references UIDB/50021/2020 and CMU/TIC/0069/2019, and also BD2018 ULisboa. We also wish to thank DARPA GARD, and the Alan Turing Institute (EP/N510129/1), which is funded by the U.K. Engineering and Physical Sciences Research Council, for its support throughout the project PRIMULA.
+This work was supported by Portuguese national funds through Fundação para a Ciência e a Tecnologia (FCT), with references UIDB/50021/2020 and CMU/TIC/0069/2019, and also BD2018 ULisboa. Bhiksha Raj was supported by the U.S. Army Research Laboratory and DARPA under contract HR001120C0012. We also wish to thank the Alan Turing Institute (EP/N510129/1), which is funded by the U.K. Engineering and Physical Sciences Research Council, for its support through the project PRIMULA.
