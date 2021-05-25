@@ -8,7 +8,7 @@ This is the official repository of [FoolHD: Fooling speaker identification by Hi
 - Alberto Abad<sup>2</sup>, 
 - Bhiksha Raj<sup>3</sup>, 
 - Andrea Cavallaro<sup>1</sup>, 
-- Isabel Trancoso<sup>2</sup></emph>
+- Isabel Trancoso<sup>2</sup>
 
 <sup>1</sup>CIS, Queen Mary University of London, UK.  
 <sup>2</sup>INESC-ID/IST, University of Lisbon, Portugal.  
