@@ -69,7 +69,7 @@ def train_gae(gae_model, adv_model, dataset, gae_optimizer, idxBeg,    idxEnd,
 			start = 0
 		if end == None:
 			end = -1
-		dataset['train'].trim_dataset(start,end)
+		dataset.trim_dataset(start,end)
 
 	# Create Dataloader
 	train_dataloader = DataLoader(dataset=dataset,
