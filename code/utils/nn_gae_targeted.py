@@ -26,7 +26,7 @@ from utils.torchaudio_local import *
 from sklearn.metrics import accuracy_score, precision_recall_fscore_support
 
 def createLogFiles(log_name):
-	f_name = './log_{}.txt'.format(log_name)
+	f_name = '{}'.format(log_name)
 	f_file = open(f_name,"w")
 	return f_file, f_name
 	
@@ -73,7 +73,7 @@ def train_gae(gae_model, adv_model, dataset, gae_optimizer, idxBeg,    idxEnd,
 
 	# Create Dataloader
 	train_dataloader = DataLoader(dataset=dataset,
-				      batch_size=batch_size, 
+				      batch_size=1, 
 				      shuffle=False,
 				      drop_last=True,
 			    	      num_workers=num_workers,
