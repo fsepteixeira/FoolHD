@@ -72,12 +72,12 @@ def train_gae(gae_model, adv_model, dataset, gae_optimizer, idxBeg,    idxEnd,
 		dataset['train'].trim_dataset(start,end)
 
 	# Create Dataloader
-	train_dataloader = DataLoader(dataset=dataset['train'],
-								  batch_size=batch_size, 
-								  shuffle=False,
-								  drop_last=True,
-								  num_workers=num_workers,
-								  collate_fn=PadBatch())
+	train_dataloader = DataLoader(dataset=dataset,
+				      batch_size=batch_size, 
+				      shuffle=False,
+				      drop_last=True,
+			    	      num_workers=num_workers,
+				      collate_fn=PadBatch())
 	gae_epoch_loss = 0
 	gen_epoch_loss = 0
 	adv_epoch_loss = 0
